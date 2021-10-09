@@ -86,7 +86,6 @@ def bfs(n):
     while len(Q) > 0:
         state = Q.popleft()
         
-        print(state)
         if isGoalState(n, state):
             return state
 

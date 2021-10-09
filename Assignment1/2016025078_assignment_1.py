@@ -6,7 +6,7 @@ from csp import csp
 
 def print_output_file(n, method, solution):
     cwd = os.path.dirname(os.path.realpath(__file__))
-    f = open(cwd + '\{}_{}_output.txt'.format(n, method), 'w')
+    f = open(cwd + '/{}_{}_output.txt'.format(n, method), 'w')
 
     if solution == []:
         f.write('no solution')
@@ -20,7 +20,7 @@ def print_output_file(n, method, solution):
 
 def main():
     cwd = os.path.dirname(os.path.realpath(__file__))
-    f = open(cwd + '\input.txt', 'r')
+    f = open(cwd + '/input.txt', 'r')
     lines = f.readlines()
     
     for line in lines:

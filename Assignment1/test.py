@@ -1,8 +1,4 @@
-from collections import deque
+import os
 
-s = set()
-s.add((1, 2, 3))
-s.add((4, 5, 6))
-print(s)
-# if [1, 2, 3] in s:
-    # print('yes')
+cwd = os.path.dirname(os.path.realpath(__file__))
+print(cwd)
