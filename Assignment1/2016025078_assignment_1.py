@@ -1,4 +1,4 @@
-import os
+import os, time
 from bfs import bfs
 from hc import hc
 from csp import csp
@@ -12,7 +12,7 @@ def print_output_file(n, method, solution):
         f.write('no solution')
     else:
         output = ''
-        for i in solution:
+        for i in solution:  
             output += '{} '.format(str(i))
         output = output[:-1]
         f.write(output)
@@ -29,7 +29,9 @@ def main():
         method = arr[1].strip()
         
         if method == 'bfs':
+            startTime = time.time()
             solution = bfs(n)
+            print('time flied:', time.time() - startTime)
         elif method == 'hc':
             solution = hc(n)
         elif method == 'csp':
