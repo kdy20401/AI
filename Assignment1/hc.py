@@ -3,6 +3,8 @@ import random
 RESTART_CNT = 30
 MAXSTUCK_CNT = 5
 
+# return the next state with the lowest heuristic function value
+# and that value
 def get_next_state(n, state, chessBoard):
     states = {}
 
@@ -30,16 +32,18 @@ def get_next_state(n, state, chessBoard):
 
     nextState = list(k)
     h = v
+
     return nextState, h 
 
 
+# returns the number of pairs of queen attacking each other
 def heuristic_func(n, state, chessBoard):
     cnt = 0
 
     for i, num in enumerate(state):
         queenX, queenY = num - 1, i
         
-        #right-up
+        # attack to the right-up direction 
         x, y = queenX, queenY
         while x >= 1 and y <= n - 2:
             if chessBoard[x - 1][y + 1] == -1:
@@ -47,14 +51,14 @@ def heuristic_func(n, state, chessBoard):
             x -= 1
             y += 1
         
-        #right
+        # attack to the right direction 
         x, y = queenX, queenY
         while y <= n - 2:
             if chessBoard[x][y + 1] == -1:
                 cnt += 1
             y += 1
 
-        #right-down
+        # attack to the right-down direction 
         x, y = queenX, queenY
         while x <= n - 2 and y <= n - 2:
             if chessBoard[x + 1][y + 1] == -1:
@@ -65,44 +69,49 @@ def heuristic_func(n, state, chessBoard):
     return cnt
 
 
-def initialize_chessBoard(n, state):
+def create_chessBoard(n, state):
     chessBoard = [[0] * n for i in range(n)]
+    # mark queens' locations
     for i, num in enumerate(state):
         chessBoard[num - 1][i] = -1
-    
+
     return chessBoard
 
 
+# hill climbing method
 def hc(n):
     global RESTART_CNT, MAXSTUCK_CNT
     restartCnt = RESTART_CNT
-    stuckCnt = h = h1 = 0
+    stuckCnt = h0 = h1 = 0
 
+    # to avoid the heuristic function value stucks at local minimum, do random restarts
     while restartCnt > 0:
-        # generate random state
-        state = [random.randrange(1, n + 1) for i in range(n)]
-        chessBoard = initialize_chessBoard(n, state)
-        
-        while h >= h1 and stuckCnt <= MAXSTUCK_CNT:
-            h = heuristic_func(n, state, chessBoard)
-            if h == 0:
-                return state
+        currentState = [random.randrange(1, n + 1) for i in range(n)]
+        chessBoard = create_chessBoard(n, currentState)
 
-            nextState, h1 = get_next_state(n, state, chessBoard)
+        h0 = heuristic_func(n, currentState, chessBoard)
+        if h0 == 0:
+            return currentState
+
+        # expand states until the value of heuristic function reaches global or local minimum
+        while h0 >= h1 and stuckCnt <= MAXSTUCK_CNT:
+            nextState, h1 = get_next_state(n, currentState, chessBoard)
+            # global minimum value
             if h1 == 0:
                 return nextState
 
-            if h == h1:
+            if h0 == h1:
                 stuckCnt += 1
             else:
                 stuckCnt = 0
 
-            # update state
-            state = nextState
-            chessBoard = initialize_chessBoard(n, state)
+            h0 = h1
+            currentState = nextState
+            # make a new chess board because state has been changed
+            chessBoard = create_chessBoard(n, currentState)
                 
+        # initialize variables after reaching local minimum
+        stuckCnt = h0 = h1 = 0
         restartCnt -= 1
-        stuckCnt = h = h1 = 0
-
 
     return []
