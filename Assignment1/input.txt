@@ -1,6 +1,4 @@
-7 csp
+5 bfs
+2 csp
+6 hc
 8 csp
-9 csp
-10 csp
-11 csp
-12 csp

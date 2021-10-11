@@ -87,7 +87,7 @@ def hc(n):
     # to avoid the heuristic function value stucks at local minimum, do random restarts
     while restartCnt > 0:
         currentState = [random.randrange(1, n + 1) for i in range(n)]
-        chessBoard = create_chessBoard(n, currentState)
+        chessBoard = create_chessBoard(n, currentState) 
 
         h0 = heuristic_func(n, currentState, chessBoard)
         if h0 == 0:

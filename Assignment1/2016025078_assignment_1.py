@@ -1,4 +1,4 @@
-import os, time
+import os
 from bfs import bfs
 from hc import hc
 from csp import csp
@@ -6,7 +6,7 @@ from csp import csp
 
 def print_output_file(n, method, solution):
     cwd = os.path.dirname(os.path.realpath(__file__))
-    f = open(cwd + '/{}_{}_output.txt'.format(n, method), 'w')
+    f = open(cwd + '\{}_{}_output.txt'.format(n, method), 'w')
 
     if solution == []:
         f.write('no solution')
@@ -20,7 +20,7 @@ def print_output_file(n, method, solution):
 
 def main():
     cwd = os.path.dirname(os.path.realpath(__file__))
-    f = open(cwd + '/input.txt', 'r')
+    f = open(cwd + '\input.txt', 'r')
     lines = f.readlines()
     
     for line in lines:
@@ -29,9 +29,7 @@ def main():
         method = arr[1].strip()
         
         if method == 'bfs':
-            startTime = time.time()
             solution = bfs(n)
-            print('time flied:', time.time() - startTime)
         elif method == 'hc':
             solution = hc(n)
         elif method == 'csp':
