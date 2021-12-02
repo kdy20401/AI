@@ -29,7 +29,7 @@ def main():
     RIGHT   = 3
 
     cwd = os.path.dirname(os.path.realpath(__file__))
-    f = open(cwd + '/input.txt', 'r')
+    f = open(cwd + '\input.txt', 'r')
     lines = f.readlines()
     f.close()
 
@@ -45,7 +45,7 @@ def main():
                 reward = 0
                 rewards.append(reward)
             elif char == 'T':
-                reward = 20
+                reward = 1
                 rewards.append(reward)
             elif char == 'G':
                 reward = 100
@@ -129,7 +129,7 @@ def main():
     q_value = str(start_state_q_value)
     
     cwd = os.path.dirname(os.path.realpath(__file__))
-    f = open(cwd + '/output.txt', 'w')
+    f = open(cwd + '\output.txt', 'w')
     f.write(route)
     f.write(q_value)
     f.close()
@@ -139,6 +139,12 @@ if __name__ == '__main__':
 
 '''
 <maze success to learn>
+SPPBP
+BPTPB
+PPBPP
+BBTPP
+BPPPG
+
 SPPPB
 BTPPB
 PPBPT
@@ -146,8 +152,14 @@ PPPPP
 BBPBG
 
 SBPPP
+PBBBB
+PPPPP
+BBBBP
+BBBBG
+
+SBPPP
 PBPBP
 PBPBP
 PPPBP
-BBBBG
+BBBBG -> sometimes success, sometimes fail
 '''
